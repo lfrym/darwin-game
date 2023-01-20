@@ -29,13 +29,13 @@ class Copycat():
     # Chooses 2 on first turn, then copies opponent's previous action in subsequent turns
     def __init__(self):
         self.type = "copycat"
-        self.prev_action = 2
+        self.opp_prev_action = 2
         
     def get_action(self):
-        return(self.prev_action)
+        return(self.opp_prev_action)
         
     def get_result(self, opponent_action):
-        self.prev_action = opponent_action
+        self.opp_prev_action = opponent_action
 
 
 class TitForTat():
@@ -44,13 +44,39 @@ class TitForTat():
         self.threshold = 2.5
         self.collaborate = 2
         self.retaliate = "copy"
-        self.prev_action = 2
+        self.opp_prev_action = 2
 
     def get_action(self):
-        if self.prev_action > self.threshold:
-            return self.prev_action if self.retaliate == "copy" else self.retaliate
+        if self.opp_prev_action > self.threshold:
+            return self.opp_prev_action if self.retaliate == "copy" else self.retaliate
         else: 
             return random.choice(range(2,4)) if self.collaborate == "2or3" else self.collaborate
 
     def get_result(self, opponent_action):
-        self.prev_action = opponent_action
+        self.opp_prev_action = opponent_action
+
+class Forgiver():
+    def __init__(self):
+        self.type = "forgiver"
+        self.threshold = 2.5
+        self.collaborate = 2
+        self.retaliate = "copy"
+        self.prev_action = 0
+        self.opp_prev_action = 2
+        self.forgive_after = 3
+        self.history = []
+
+    def get_action(self):
+        if sum([h > 5 for h in self.history]) >= self.forgive_after:
+            self.prev_action = 2
+        else:
+            if self.opp_prev_action > self.threshold:
+                self.prev_action = self.opp_prev_action if self.retaliate == "copy" else self.retaliate
+            else: 
+                self.prev_action = random.choice(range(2,4)) if self.collaborate == "2or3" else self.collaborate
+        return self.prev_action
+
+    def get_result(self, opponent_action):
+        self.history.append(self.prev_action + opponent_action)
+        if len(self.history) > self.forgive_after:
+            self.history.pop(0)

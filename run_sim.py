@@ -9,7 +9,7 @@ def main():
     nturns = 85
     all_pols = {
         "always_2": policies.AlwaysN(n=2),
-        "always_3": policies.AlwaysN(n=3),
+        "forgiver": policies.Forgiver(),
         "random": policies.RandomInRange(),
         "copycat": policies.Copycat(),
         "titfortat": policies.TitForTat()
