@@ -9,7 +9,7 @@ class AlwaysN():
     def get_action(self):
         return(self.n)
 
-    def get_result(self, opponent_action):
+    def give_result(self, opponent_action):
         pass
 
 
@@ -21,7 +21,7 @@ class RandomInRange():
     def get_action(self):
         return(random.choice(self.choices))
 
-    def get_result(self, opponent_action):
+    def give_result(self, opponent_action):
         pass
     
 
@@ -34,7 +34,7 @@ class Copycat():
     def get_action(self):
         return(self.opp_prev_action)
         
-    def get_result(self, opponent_action):
+    def give_result(self, opponent_action):
         self.opp_prev_action = opponent_action
 
 
@@ -52,7 +52,7 @@ class TitForTat():
         else: 
             return random.choice(range(2,4)) if self.collaborate == "2or3" else self.collaborate
 
-    def get_result(self, opponent_action):
+    def give_result(self, opponent_action):
         self.opp_prev_action = opponent_action
 
 class Forgiver():
@@ -76,7 +76,7 @@ class Forgiver():
                 self.prev_action = random.choice(range(2,4)) if self.collaborate == "2or3" else self.collaborate
         return self.prev_action
 
-    def get_result(self, opponent_action):
+    def give_result(self, opponent_action):
         self.history.append(self.prev_action + opponent_action)
         if len(self.history) > self.forgive_after:
             self.history.pop(0)

@@ -26,8 +26,8 @@ class GenePool():
         actions = [policy1.get_action(), policy2.get_action()]
 
         # Update history for each policy
-        policy1.get_result(actions[1])
-        policy2.get_result(actions[0])
+        policy1.give_result(actions[1])
+        policy2.give_result(actions[0])
 
         # Return payoffs
         return actions if sum(actions) < 5 else [0, 0]
