@@ -1,6 +1,6 @@
 # darwin-game
 
-Quick implementation of the [Darwin Game]([https://thezvi.wordpress.com/2017/11/15/the-darwin-game/]), an evolutionary game theory setting.
+Quick implementation of the [Darwin Game](https://thezvi.wordpress.com/2017/11/15/the-darwin-game/), an evolutionary game theory setting.
 
 `run_sim.py` runs the simulation. To add new policies, create a class in `policies.py` with the following properties and methods:
 - `__init__()` should assign a `self.type` for naming purposes
